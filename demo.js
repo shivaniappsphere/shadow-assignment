@@ -1,44 +1,71 @@
+// Import utility functions from our modules
 import { delegateShadowEvents } from './src/delegator.js';
 import { processStyleThiefBatch } from './src/styleBatch.js';
 import { transmitTelemetryOrFallback } from './src/telemetry.js';
 
-/* TASK 1 */
-const host = document.getElementById('shadow-host');
-const log = document.getElementById('log');
+// ================================
+// TASK 1: Shadow DOM Event Delegation
+// Demonstrates how events from within a shadow DOM can be captured and logged
+// ================================
 
-delegateShadowEvents(host, ['click'], (data) => {
-  const div = document.createElement('div');
-  div.textContent = JSON.stringify(data);
-  log.prepend(div);
+// Get references to the shadow host and log container
+const shadowHost = document.getElementById('shadow-host');
+const eventLog = document.getElementById('log');
+
+// Set up event delegation for click events on the shadow host
+delegateShadowEvents(shadowHost, ['click'], (eventData) => {
+    // Create a new div to display the event information
+    const logEntry = document.createElement('div');
+    logEntry.textContent = JSON.stringify(eventData, null, 2); // Pretty-print JSON
+
+    // Add the new entry to the top of the log
+    eventLog.prepend(logEntry);
 });
 
-/* TASK 2 */
-const btn = document.getElementById('runStyleBtn');
-const targets = document.querySelectorAll('.target');
-const output = document.getElementById('style-output');
+// ================================
+// TASK 2: Style Extraction and Animation
+// Extracts styles from target elements and creates animated copies
+// ================================
 
-btn.onclick = () => {
-  processStyleThiefBatch(targets, output);
+// Get references to the style processing button and related elements
+const styleButton = document.getElementById('runStyleBtn');
+const styleTargets = document.querySelectorAll('.target');
+const styleOutput = document.getElementById('style-output');
+
+// Handle click on the style button
+styleButton.onclick = () => {
+    // Process the style batch and display animated copies
+    processStyleThiefBatch(styleTargets, styleOutput);
 };
 
-/* TASK 3 */
-const tBtn = document.getElementById('sendTelemetryBtn');
-const status = document.getElementById('telemetry-status');
+// ================================
+// TASK 3: Telemetry Transmission
+// Demonstrates sending telemetry data with fallback mechanisms
+// ================================
 
-tBtn.onclick = () => {
-  const payload = {
-    event: 'click',
-    time: Date.now()
-  };
+// Get references to the telemetry button and status display
+const telemetryButton = document.getElementById('sendTelemetryBtn');
+const telemetryStatus = document.getElementById('telemetry-status');
 
-  const res = transmitTelemetryOrFallback(
-    payload,
-    'https://httpbin.org/post'
-  );
+// Handle click on the telemetry button
+telemetryButton.onclick = () => {
+    // Create a sample telemetry payload
+    const telemetryPayload = {
+        event: 'click',
+        timestamp: Date.now()
+    };
 
-  status.innerHTML = `
-    Size: ${res.size} bytes <br>
-    Method: ${res.method} <br>
-    Status: ${res.status}
-  `;
+    // Attempt to transmit the telemetry data
+    const transmissionResult = transmitTelemetryOrFallback(
+        telemetryPayload,
+        'https://httpbin.org/post'
+    );
+
+    // Update the status display with transmission details
+    telemetryStatus.innerHTML = `
+        <strong>Transmission Details:</strong><br>
+        Size: ${transmissionResult.size} bytes<br>
+        Method: ${transmissionResult.method}<br>
+        Status: ${transmissionResult.status}
+    `;
 };

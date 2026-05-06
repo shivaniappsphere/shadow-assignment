@@ -139,7 +139,6 @@ h2 {
   background: #4facfe;
   color: white;
   cursor: pointer;
-  transition: 0.2s;
 }
 
 .btn:hover {
@@ -159,11 +158,6 @@ h2 {
 .success { color: #0f0; }
 .warning { color: orange; }
 
-.footer-note {
-  font-size: 12px;
-  margin-top: 8px;
-  color: #777;
-}
 </style>
 </head>
 
@@ -180,10 +174,8 @@ h2 {
 
 <!-- TASK 1 -->
 <div class="card">
-<h2>🧩 Task 1: Event Delegator</h2>
-<div class="subtitle">
-Closed Shadow DOM + safe event retargeting
-</div>
+<h2> Task 1: Event Delegator</h2>
+<div class="subtitle">Closed Shadow DOM + safe event retargeting</div>
 
 <div id="shadow-host" class="box">
 Click here (hidden button inside Shadow DOM)
@@ -194,13 +186,10 @@ Click here (hidden button inside Shadow DOM)
 
 <!-- TASK 2 -->
 <div class="card">
-<h2>🎨 Task 2: Style Batching</h2>
-<div class="subtitle">
-Optimized DOM read/write with requestAnimationFrame
-</div>
+<h2> Task 2: Style Batching</h2>
+<div class="subtitle">Optimized DOM read/write with requestAnimationFrame</div>
 
 <div class="comparison">
-
 <div class="panel">
 <h4>Before</h4>
 <div class="target" style="color:red; font-size:18px; border-radius:10px;">Sample A</div>
@@ -212,28 +201,21 @@ Optimized DOM read/write with requestAnimationFrame
 <h4>After</h4>
 <div id="style-output" class="output"></div>
 </div>
-
 </div>
 
 <button id="runStyleBtn" class="btn">Run Extraction</button>
-
 </div>
 
 <!-- TASK 3 -->
 <div class="card">
-<h2>📡 Task 3: Telemetry</h2>
-<div class="subtitle">
-sendBeacon + fetch fallback strategy
-</div>
+<h2>📡Task 3: Telemetry</h2>
+<div class="subtitle">sendBeacon + fetch fallback strategy</div>
 
-<button id="sendTelemetryBtn" class="btn">
-Send Telemetry
-</button>
+<button id="sendTelemetryBtn" class="btn">Send Telemetry</button>
 
 <div id="telemetry-status" class="telemetry-box">
 Waiting...
 </div>
-
 </div>
 
 </div>
